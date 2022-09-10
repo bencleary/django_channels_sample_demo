@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample User Channels</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-4">
+    
+
+    <h1 id="user-id" data-userid="{{ request.user.id }}">Current User: {{ request.user }}</h1>
+
+    <ul id="notifications"></ul>
+
+    <script>
+        const userID = document.getElementById("user-id").dataset.userid;
+        const ws = new WebSocket(`ws://localhost:8000/ws/user/${userID}/notifications/`);
+        const notificationsHolder = document.getElementById("notifications");
+
+        ws.onmessage = function(e) {
+            let li = document.createElement('li');
+            li.innerText = e.data;
+            notificationsHolder.appendChild(li);
+        };
+    </script>
+</body>
+</html>
