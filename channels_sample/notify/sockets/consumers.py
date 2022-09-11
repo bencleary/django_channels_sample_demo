@@ -55,7 +55,6 @@ class UserNotificationsConsumer(ActionsConsumer):
     """
     @action(key="offer")
     async def unique_offer(self, event):
-        await asyncio.sleep(1) # do something
         await self.send(event["promotion"])
 
     async def receive(self, text_data):
